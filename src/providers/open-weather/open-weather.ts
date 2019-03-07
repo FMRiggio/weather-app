@@ -11,20 +11,25 @@ export class OpenWeatherProvider {
 	}
 
 	public load( city ) {
-		return new Promise(resolve => {
+		return new Promise( (resolve, reject) => {
 			this.http
 					.get('https://api.openweathermap.org/data/2.5/weather?q=' + city 
 							+ '&appid=2c521ad181a4da6e0d07193b00b96c26' )
 					.subscribe( (data: any) => {
 						this.data = data;
 						resolve(this.data);
+					}, err => {
+						reject(err);
 					});
 		});
 	}
 
 	public getWeatherByCity( city ) {
-		return <any>this.load( city ).then( data => {
-			return data;
-		});
+		return <any>this.load( city )
+			.then( data => {
+				return data;
+			}, err => {
+				return err;
+			});
 	}
 }

@@ -16,6 +16,10 @@ export class HomePage {
 		public navCtrl: NavController,
 		public modalCtrl: ModalController
 	) {
+		this.loadCities();
+	}
+
+	public loadCities() {
 		var cities = <any>localStorage.getItem('cities');
 		if ( cities ) {
 			this.cities = JSON.parse( cities );
@@ -24,10 +28,18 @@ export class HomePage {
 		}
 	}
 
+	public addCityToCities( city ) {
+		this.cities.push( city );
+	}
+
 	public addCity()
 	{
 		const modal = this.modalCtrl.create(AddCityPage);
 		modal.present();
+
+		modal.onDidDismiss( data => {
+			this.addCityToCities( data.city );
+		});
 	}
 
 }
