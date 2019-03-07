@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ViewController } from 'ionic-angular';
+import { OpenWeatherProvider } from '../../providers/open-weather/open-weather';
 
 @Component({
 	selector: 'page-add-city',
@@ -7,18 +8,18 @@ import { NavController, NavParams, ViewController } from 'ionic-angular';
 })
 export class AddCityPage {
 
-	public cityData = {};
+	public cityData = {
+		city: '',
+		weather: '',
+		temp: 0
+	};
 
 	constructor(
 		public navCtrl: NavController,
 		public navParams: NavParams,
-		public viewCtrl: ViewController
+		public viewCtrl: ViewController,
+		public openWeatherApi: OpenWeatherProvider
 	) {
-		this.cityData = {
-			city: '',
-			weather: '',
-			temp: ''
-		};
 	}
 
 	public dismiss() {
@@ -32,9 +33,14 @@ export class AddCityPage {
 		} else {
 			cities = JSON.parse( cities );
 		}
-		cities.push( this.cityData )
 
-		localStorage.setItem('cities', JSON.stringify( cities ) );
-		this.dismiss();
+		this.openWeatherApi.getWeatherByCity( this.cityData.city ).then( result => {
+			this.cityData.weather = result.weather[0].main;
+			this.cityData.temp    = Math.round( (result.main.temp - 273.15 ) * 100 / 100 );
+
+			cities.push( this.cityData );
+			localStorage.setItem('cities', JSON.stringify( cities ) );
+			this.dismiss();
+		});
 	}
 }

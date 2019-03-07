@@ -16,15 +16,12 @@ export class HomePage {
 		public navCtrl: NavController,
 		public modalCtrl: ModalController
 	) {
-
-		this.cities = [
-			{ city: 'Verona',         weather: 'Nebbia',     temp: 12 },
-			{ city: 'Cerro Veronese', weather: 'Soleggiato', temp: 5 },
-			{ city: 'Genova',         weather: 'Umido',      temp: 16 }
-		];
-
-		//this.cities = JSON.parse( localStorage.getItem('cities') );
-
+		var cities = <any>localStorage.getItem('cities');
+		if ( cities ) {
+			this.cities = JSON.parse( cities );
+		} else {
+			this.cities = [];
+		}
 	}
 
 	public addCity()
