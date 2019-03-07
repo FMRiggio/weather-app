@@ -1,0 +1,46 @@
+<ion-header>
+	<ion-navbar>
+
+		<ion-title>Aggiungi Città</ion-title>
+
+		<ion-buttons end>
+			<button ion-button icon-left (click)="dismiss()">
+				<ion-icon name="close"></ion-icon> Chiudi
+			</button>
+		</ion-buttons>
+
+	</ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+	<ion-list>
+
+		<ion-item>
+			<ion-label floating>Città</ion-label>
+			<ion-input type="text" [(ngModel)]="cityData.city"></ion-input>
+		</ion-item>
+		
+		<ion-item>
+			<ion-label floating>Tempo</ion-label>
+			<ion-input type="text" [(ngModel)]="cityData.weather"></ion-input>
+		</ion-item>
+
+		<ion-item>
+			<ion-label floating>Temperatura</ion-label>
+			<ion-input type="text" [(ngModel)]="cityData.temp"></ion-input>
+		</ion-item>
+		
+	</ion-list>
+
+	<pre>{{ cityData | json }}</pre>
+
+</ion-content>
+
+<ion-footer>
+	<ion-toolbar>
+		<button ion-button full>
+			Salva Città
+		</button>
+	</ion-toolbar>
+</ion-footer>
