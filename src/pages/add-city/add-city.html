@@ -33,13 +33,11 @@
 		
 	</ion-list>
 
-	<pre>{{ cityData | json }}</pre>
-
 </ion-content>
 
 <ion-footer>
 	<ion-toolbar>
-		<button ion-button full>
+		<button ion-button full (click)="saveCity()">
 			Salva Città
 		</button>
 	</ion-toolbar>

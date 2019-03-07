@@ -24,4 +24,17 @@ export class AddCityPage {
 	public dismiss() {
 		this.viewCtrl.dismiss();
 	}
+
+	public saveCity() {
+		var cities = <any>localStorage.getItem('cities');
+		if ( !cities ) {
+			cities = [];
+		} else {
+			cities = JSON.parse( cities );
+		}
+		cities.push( this.cityData )
+
+		localStorage.setItem('cities', JSON.stringify( cities ) );
+		this.dismiss();
+	}
 }
